@@ -25,3 +25,24 @@ class OrganizationRegistrationSerializer(serializers.Serializer):
             organization_data=validated_data["organization"],
             admin_data=validated_data["admin"],
         )
+        
+class OrganizationApprovalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = [
+            "id",
+            "name",
+            "email",
+            "phone",
+            "state",
+            "address",
+            "status",
+            "created_at",
+        ]
+        read_only_fields = fields
+
+class OrganizationRejectSerializer(serializers.Serializer):
+    rejection_reason = serializers.CharField(
+        required=True,
+        allow_blank=False,
+    )
