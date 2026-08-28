@@ -46,3 +46,8 @@ class OrganizationRejectSerializer(serializers.Serializer):
         required=True,
         allow_blank=False,
     )
+class OrganizationInvitationSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        return value.lower().strip()

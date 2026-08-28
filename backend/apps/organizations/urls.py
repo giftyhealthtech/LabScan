@@ -4,6 +4,7 @@ from .views import (
     OrganizationRegistrationView,
     PendingOrganizationsView,
     ApproveOrganizationView,
+    InvitationView,
 )
 
 urlpatterns = [
@@ -22,4 +23,9 @@ urlpatterns = [
         ApproveOrganizationView.as_view(),
         name="approve-organizations",
     ),
+    path(
+    "<int:organization_id>/invitations/",
+    InvitationView.as_view(),
+    name="organization-invite-staff",
+)
 ]
