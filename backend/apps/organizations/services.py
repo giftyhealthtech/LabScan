@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from apps.accounts.services import create_user
 from .models import Organization, OrganizationMembership, OrganizationInvitation
+from .service_email import send_invitation_email
 
 @transaction.atomic
 def register_organization(
@@ -35,10 +36,15 @@ def create_invitation(
 ):
     expires_at = timezone.now() + timedelta(days=3)
 
-    return OrganizationInvitation.objects.create(
+    invitation =  OrganizationInvitation.objects.create(
         organization=organization,
         email=email,
         role=OrganizationMembership.Role.STAFF,
         expires_at=expires_at,
         invited_by=invited_by,
     )
+    transaction.on_commit(
+        lambda: send_invitation_email(invitation)
+    )
+    
+    return invitation
