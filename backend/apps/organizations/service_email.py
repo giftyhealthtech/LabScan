@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.core.mail import send_mail
 
-from .models import OrganizationInvitation
-
 def send_invitation_email(invitation):
     invitation_url = (
         f"{settings.FRONTEND_URL}"

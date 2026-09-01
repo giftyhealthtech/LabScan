@@ -100,7 +100,7 @@ class OrganizationInvitation(models.Model):
     )
 
     expires_at = models.DateTimeField()
-
+    accepted_at = models.DateTimeField(null=True, blank=True,)
     invited_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
