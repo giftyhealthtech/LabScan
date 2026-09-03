@@ -5,6 +5,7 @@ from .views import (
     PendingOrganizationsView,
     ApproveOrganizationView,
     InvitationView,
+    AcceptInvitationView,
 )
 
 urlpatterns = [
@@ -24,8 +25,13 @@ urlpatterns = [
         name="approve-organizations",
     ),
     path(
-    "<int:organization_id>/invitations/",
-    InvitationView.as_view(),
-    name="organization-invite-staff",
-)
+        "<int:organization_id>/invitations/",
+        InvitationView.as_view(),
+        name="organization-invite-staff",
+    ),
+    path(
+        "invitations/<uuid:invitation_token>/accept/",
+        AcceptInvitationView.as_view(),
+        name="organization-accept-invitation",
+    )
 ]

@@ -109,6 +109,15 @@ class OrganizationInvitation(models.Model):
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["organization", "email"],
+                condition=models.Q(status="PENDING"),
+                name="unique_pending_invitation_per_org_email",
+            ),
+        ]
 
     def __str__(self):
         return f"{self.email} - {self.organization.name}"  
